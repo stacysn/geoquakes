@@ -6,7 +6,7 @@ $(document).ready(function() {
   // CODE IN HERE!
   $.ajax({
     method: "GET",
-    url: "http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_week.geojson",
+    url: "https://earthquake.usgs.gov/fdsnws/event/1/query.geojson?starttime=2017-06-30%2000:00:00&endtime=2017-07-07%2023:59:59&minmagnitude=2.5&orderby=time",
     dataType: 'json',
     success: onSuccess
 
@@ -21,8 +21,16 @@ $(document).ready(function() {
 
 
 function onSuccess(responseData){
-  console.log("TEST", responseData);
-  var random = responseData.features[0].properties.title;
-  console.log("TEST 2", responseData.features[0].properties.title);
-  $('#info').append(random);
+  // var random = responseData.features[0].properties.title;
+
+  var quakeArray = responseData.features;
+  quakeArray.forEach(function(quake){
+    console.log(quake.properties.title);
+    $("#info").append(`<p> ${quake.properties.title}</p>`);
+    // console.log("print me");
+    // console.log("TESTTTTTTTT");
+  })
+  // console.log("TEST 2", responseData.features[0].properties.title);
+  // $('#info').append(random);
+  // console.log("HIII");
 }
