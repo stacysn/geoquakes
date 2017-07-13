@@ -49,14 +49,18 @@
 
 
 let weekly_quakes_endpoint = "http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_week.geojson";
-// var $("info");
 let map;
 
 $(document).ready(function() {
-  // console.log("Let's get coding!");
-  // CODE IN HERE!
   initMap();
   getQuakes();
+
+  function initMap(){
+    map = new google.maps.Map(document.getElementById('map'),{
+      center: {lat: 37.7749, lng: -122.4194},
+      zoom:8
+    });
+  };
 
   function getQuakes(){
     $.ajax({
@@ -66,9 +70,7 @@ $(document).ready(function() {
       success: onSuccess
     });
 
-
     function onSuccess(responseData){
-      // var random = responseData.features[0].properties.title;
       let quakeArray = responseData.features;
 
       quakeArray.forEach(function(quake){
@@ -81,21 +83,18 @@ $(document).ready(function() {
 
         let lat = quake.geometry.coordinates[1];
         let lng = quake.geometry.coordinates[0];
-
         // function markPoints(){
-        new google.maps.Marker({
-          position: new google.maps.LatLng(lat, lng),
-          map: map,
-          title: title
-        });
+        // let latLng = {lat: lat, lng: lng};
+        setMarkers(lat,lng, title);
       });
-    }
+    };
   };
 });
 
-function initMap(){
-  let map = new google.maps.Map(document.getElementById('map'),{
-    center: {lat: 37.7749, lng: -122.4194},
-    zoom:8
+function setMarkers(lat, lng, title){
+  new google.maps.Marker({
+    position: {lat: lat, lng: lng},
+    map: map,
+    title: title
   });
 };
