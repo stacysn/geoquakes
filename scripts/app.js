@@ -1,4 +1,4 @@
-let weekly_quakes_endpoint = "http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_week.geojson";
+let weekly_quakes_endpoint = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_week.geojson";
 let map;
 
 $(document).ready(function() {
@@ -33,8 +33,6 @@ $(document).ready(function() {
 
         let lat = quake.geometry.coordinates[1];
         let lng = quake.geometry.coordinates[0];
-        // function markPoints(){
-        // let latLng = {lat: lat, lng: lng};
         setMarkers(lat,lng, title);
       });
     };
